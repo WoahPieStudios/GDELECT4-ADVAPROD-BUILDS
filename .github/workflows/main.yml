@@ -1,4 +1,4 @@
-name: Format Site
+name: Deploy Build
 
 on:
   push:
