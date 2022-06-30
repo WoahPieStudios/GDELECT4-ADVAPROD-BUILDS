@@ -2,7 +2,7 @@ name: Deploy Build
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
   workflow_dispatch:
 
@@ -23,6 +23,13 @@ jobs:
           git add index.html
           git commit -m '${{ github.event.repository.updated_at}}'
           git push
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
 
       - name: Notify Discord
         uses: sarisia/actions-status-discord@v1.9.0
